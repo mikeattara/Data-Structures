@@ -10,21 +10,60 @@ class BinarySearchTree:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        # LEFT CASE
+        # check if our new nodes value is less than the current nodes value
+        if value < self.value:
+            # does it have a child to the left?
+            if self.left is None:
+                # place our new node here
+                self.left = BinarySearchTree(value)
+                return
+            # otherwise
+            else:
+                # repeat process for the left
+                self.left.insert(value)
+
+        # RIGHT CASE
+        # check if the new nodes value is greater than or equal to the current nodes value
+        if value >= self.value:
+            # does it have a child to the right?
+            if self.right is None:
+                # place our new node here
+                self.right = BinarySearchTree(value)
+                return
+            # otherwise
+            else:
+                # repeat the process for the right
+                self.right.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        # if the target is the root node, return True
+        if self.value == target:
+            return True
+        # if value is less than root node and left is not None, recurse
+        elif target < self.value and self.left:
+            return self.left.contains(target)
+        # if value is greater than root node and right is not None, recurse
+        elif target > self.value and self.right:
+            return self.right.contains(target)
+        # otherwise
+        return False
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        # maximum value must be on the right
+        if not self.right:
+            return self.value
+        else:
+            return self.right.get_max()
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        if not self.left and not self.right:
+            cb(self.value)
 
     # DAY 2 Project -----------------------
 
